@@ -1,0 +1,280 @@
+PIC Lab Programs in C (Detailed Version)
+
+
+
+
+
+1 Power of a number (recursive & iterative)
+#include <stdio.h>
+int powerRecursive(int base, int exponent) {
+ if (exponent == 0) return 1;
+ if (exponent < 0) return 0;
+ return base * powerRecursive(base, exponent - 1);
+}
+int powerIterative(int base, int exponent) {
+ if (exponent < 0) return 0;
+ int result = 1;
+ for (int i = 0; i < exponent; i++) result *= base;
+ return result;
+}
+int main() {
+ int b, e;
+ printf("Enter base and exponent: ");
+ scanf("%d %d", &b, &e);
+ printf("Recursive: %d^%d = %d\n", b, e, powerRecursive(b, e));
+ printf("Iterative: %d^%d = %d\n", b, e, powerIterative(b, e));
+ return 0;
+}
+
+
+
+
+
+
+2 Search for a number in an integer array
+#include <stdio.h>
+int searchNumber(int arr[], int size, int key) {
+ for (int i = 0; i < size; i++)
+ if (arr[i] == key) return i;
+ return -1;
+}
+int main() {
+ int n;
+ printf("Enter array size: ");
+ scanf("%d", &n);
+ int arr[n];
+ printf("Enter elements: ");
+ for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+ int key;
+ printf("Enter number to search: ");
+ scanf("%d", &key);
+ int idx = searchNumber(arr, n, key);
+ if (idx >= 0) printf("Found at index %d\n", idx);
+ else printf("Not found\n");
+ return 0;
+}
+
+
+
+
+
+3 User-defined string functions
+#include <stdio.h>
+int mystrlen(char str[]) {
+ int len = 0;
+ while (str[len] != '\0') len++;
+ return len;
+}
+void mystrcat(char dest[], char src[]) {
+ int i = 0, j = 0;
+ while (dest[i] != '\0') i++;
+ while (src[j] != '\0') dest[i++] = src[j++];
+ dest[i] = '\0';
+}
+void mystrrev(char str[]) {
+ int i = 0, j = mystrlen(str) - 1;
+ while (i < j) {
+ char t = str[i]; str[i] = str[j]; str[j] = t;
+ i++; j--;
+ }
+}
+int mystrcmp(char a[], char b[]) {
+ int i = 0;
+ while (a[i] && b[i] && a[i] == b[i]) i++;
+ return a[i] - b[i];
+}
+int main() {
+ char a[100], b[100];
+ printf("Enter first string: ");
+ gets(a);
+ printf("Enter second string: ");
+ gets(b);
+ printf("Length = %d\n", mystrlen(a));
+ mystrcat(a, b);
+ printf("Concatenated = %s\n", a);
+ mystrrev(a);
+ printf("Reversed = %s\n", a);
+ printf("Compare = %d\n", mystrcmp(a, b));
+ return 0;
+}
+
+
+
+
+
+
+
+4 Sum of diagonal elements of matrix
+#include <stdio.h>
+int diagonalSum(int mat[10][10], int n) {
+ int sum = 0;
+ for (int i = 0; i < n; i++) sum += mat[i][i];
+ return sum;
+}
+int main() {
+ int n;
+ printf("Enter order of square matrix: ");
+ scanf("%d", &n);
+ int mat[10][10];
+ printf("Enter elements:\n");
+ for (int i = 0; i < n; i++)
+ for (int j = 0; j < n; j++) scanf("%d", &mat[i][j]);
+ printf("Diagonal sum = %d\n", diagonalSum(mat, n));
+ return 0;
+}
+
+
+
+
+
+
+
+5 Sum of natural numbers in array (pointers)
+#include <stdio.h>
+int sumNaturalNumbers(int *arr, int n) {
+ int sum = 0;
+ for (int *p = arr; p < arr + n; p++)
+ if (*p > 0) sum += *p;
+ return sum;
+}
+int main() {
+ int n;
+ printf("Enter size: ");
+ scanf("%d", &n);
+ int arr[n];
+ printf("Enter numbers: ");
+ for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+ printf("Sum = %d\n", sumNaturalNumbers(arr, n));
+ return 0;
+}
+
+
+
+
+
+
+6 Reverse array using pointers
+#include <stdio.h>
+void reverseArray(int *arr, int n) {
+ int *start = arr, *end = arr + n - 1;
+ while (start < end) {
+ int t = *start; *start = *end; *end = t;
+ start++; end--;
+ }
+}
+int main() {
+ int n;
+ printf("Enter size: ");
+ scanf("%d", &n);
+ int arr[n];
+ printf("Enter elements: ");
+ for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+ reverseArray(arr, n);
+ printf("Reversed array: ");
+ for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+ return 0;
+}
+
+
+
+
+
+
+7 Check palindrome string
+#include <stdio.h>
+#include <string.h>
+int isPalindrome(char s[]) {
+ int i = 0, j = strlen(s) - 1;
+ while (i < j) {
+ if (s[i++] != s[j--]) return 0;
+ }
+ return 1;
+}
+int main() {
+ char s[100];
+ printf("Enter string: ");
+ gets(s);
+ if (isPalindrome(s)) printf("Palindrome\n");
+ else printf("Not palindrome\n");
+ return 0;
+}
+
+
+
+
+
+
+
+8 Structure Employee array
+#include <stdio.h>
+struct Employee {
+ char name[50];
+ int age;
+ float salary;
+};
+int main() {
+ int n;
+ printf("Enter number of employees: ");
+ scanf("%d", &n);
+ struct Employee e[n];
+ for (int i = 0; i < n; i++) {
+ printf("Enter name, age, salary: ");
+ scanf("%s %d %f", e[i].name, &e[i].age, &e[i].salary);
+ }
+ printf("\nEmployee details:\n");
+ for (int i = 0; i < n; i++)
+ printf("%s %d %.2f\n", e[i].name, e[i].age, e[i].salary);
+ return 0;
+}
+
+
+
+
+
+
+9 Pointer to structure: add complex numbers
+#include <stdio.h>
+struct Complex { float r, i; };
+struct Complex add(struct Complex *a, struct Complex *b) {
+ struct Complex c;
+ c.r = a->r + b->r;
+ c.i = a->i + b->i;
+ return c;
+}
+int main() {
+ struct Complex x, y, z;
+ printf("Enter first complex (r i): ");
+ scanf("%f %f", &x.r, &x.i);
+ printf("Enter second complex (r i): ");
+ scanf("%f %f", &y.r, &y.i);
+ z = add(&x, &y);
+ printf("Sum = %.2f + %.2fi\n", z.r, z.i);
+ return 0;
+}
+
+
+
+
+
+
+10 Command-line calculator
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]) {
+ if (argc != 4) {
+ printf("Usage: %s num1 op num2\n", argv[0]);
+ return 1;
+ }
+ double a = atof(argv[1]), b = atof(argv[3]);
+ char op = argv[2][0];
+ double res;
+ switch(op) {
+ case '+': res = a + b; break;
+ case '-': res = a - b; break;
+ case '*': res = a * b; break;
+ case '/': res = b ? a / b : 0; break;
+ default: printf("Invalid op\n"); return 1;
+ }
+ printf("%.2f %c %.2f = %.2f\n", a, op, b, res);
+ return 0;
+}
