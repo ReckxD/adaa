@@ -1,0 +1,50 @@
+#!/bin/bash
+
+while true
+do
+    echo "=============================="
+    echo "       MENU DRIVEN PROGRAM"
+    echo "=============================="
+    echo "1. List of files"
+    echo "2. Processes of users"
+    echo "3. Today's date"
+    echo "4. Quit"
+    echo "=============================="
+
+    read -p "Enter your choice: " choice
+
+    case $choice in
+        1)
+            echo
+            echo "Files in the current directory:"
+            ls -l
+            ;;
+
+        2)
+            echo
+            echo "Processes of current user:"
+            ps -u "$USER"
+            ;;
+
+        3)
+            echo
+            echo "Today's date and time:"
+            date
+            ;;
+
+        4)
+            echo
+            echo "Exiting the program..."
+            break
+            ;;
+
+        *)
+            echo
+            echo "Invalid choice! Please enter 1-4."
+            ;;
+    esac
+
+    echo
+    read -p "Press Enter to continue..."
+    clear
+done
